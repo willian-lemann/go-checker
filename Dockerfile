@@ -1,4 +1,4 @@
-FROM golang:1.21-bullseye
+FROM golang:1.22-bookworm
 
 WORKDIR /app
 
@@ -26,7 +26,8 @@ RUN apt-get update && apt-get install -y \
    libxrandr2 \
    xdg-utils \
    libu2f-udev \
-   libvulkan1
+   libvulkan1 \
+   && rm -rf /var/lib/apt/lists/*
 
 # Copy go mod files
 COPY go.mod go.sum ./
