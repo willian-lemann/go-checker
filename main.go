@@ -7,6 +7,7 @@ import (
 	"math"
 	"net/http"
 	"net/url"
+	"os"
 	"strings"
 	"time"
 
@@ -1050,7 +1051,18 @@ func main() {
 	fmt.Println("  POST /api/audit  (body: {\"url\": \"https://example.com\"})")
 	fmt.Println("  GET  /api/audit?url=https://example.com")
 
-	if err := app.Listen(":3000"); err != nil {
+	if err := app.Listen(getPort()); err != nil {
 		fmt.Printf("Error starting server: %v\n", err)
 	}
+}
+
+func getPort() string {
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = ":8080"
+	} else {
+		port = ":" + port
+	}
+
+	return port
 }
